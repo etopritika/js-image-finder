@@ -2,9 +2,9 @@ import ApiService from './api-service';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import imageCardTpl from "./templates/image-card.hbs";
+// import imageCardTpl from './templates/image-card.hbs';
 // const template = Handlebars.compile(imageCardTpl);
-console.log(imageCardTpl);
+// console.log(imageCardTpl);
 
 const apiService = new ApiService();
 const form = document.querySelector('#search-form');
@@ -71,47 +71,47 @@ async function onLoadMore() {
   }
 }
 
-// function renderCard(card) {
-//   const cardListMarkup = card
-//     .map(
-//       ({
-//         webformatURL,
-//         largeImageURL,
-//         tags,
-//         likes,
-//         views,
-//         comments,
-//         downloads,
-//       }) => {
-//         return `<div class="photo-card">
-//     <a class="image-link" href="${largeImageURL}">
-//     <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy" height="240px"/>
-//     <div class="info">
-//       <p class="info-item">
-//         <b>Likes</b>
-//         ${likes}
-//       </p>
-//       <p class="info-item">
-//         <b>Views</b>
-//         ${views}
-//       </p>
-//       <p class="info-item">
-//         <b>Comments</b>
-//         ${comments}
-//       </p>
-//       <p class="info-item">
-//         <b>Downloads</b>
-//         ${downloads}
-//       </p>
-//     </div>
-//     </a>
-//   </div>
-//   `;
-//       }
-//     )
-//     .join('');
-//   gallery.insertAdjacentHTML('beforeEnd', cardListMarkup);
-// }
+function renderCard(card) {
+  const cardListMarkup = card
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => {
+        return `<div class="photo-card">
+    <a class="image-link" href="${largeImageURL}">
+    <img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy" height="240px"/>
+    <div class="info">
+      <p class="info-item">
+        <b>Likes</b>
+        ${likes}
+      </p>
+      <p class="info-item">
+        <b>Views</b>
+        ${views}
+      </p>
+      <p class="info-item">
+        <b>Comments</b>
+        ${comments}
+      </p>
+      <p class="info-item">
+        <b>Downloads</b>
+        ${downloads}
+      </p>
+    </div>
+    </a>
+  </div>
+  `;
+      }
+    )
+    .join('');
+  gallery.insertAdjacentHTML('beforeEnd', cardListMarkup);
+}
 
 const lightbox = new SimpleLightbox('.image-link', {
   captionsData: 'alt',
@@ -119,5 +119,5 @@ const lightbox = new SimpleLightbox('.image-link', {
 });
 
 function appendArticlesMarkup(articles) {
-  gallery.insertAdjacentHTML("beforeend", imageCardTpl(articles));
+  gallery.insertAdjacentHTML('beforeend', renderCard(articles));
 }
